@@ -1,14 +1,14 @@
-import express from "express";             // Express framework import
-import cors from "cors";                   // CORS middleware import
-import cookieParser from "cookie-parser";  // Cookie parser middleware import
+import express from "express"; // Express framework import
+import cors from "cors"; // CORS middleware import
+import cookieParser from "cookie-parser"; // Cookie parser middleware import
 
-const app = express();                     // Express app create
+const app = express(); // Express app create
 
 // Enable CORS for specific origin with credentials
 app.use(
   cors({
-    origin: process.env.CORS_ORIGIN,      // Allowed frontend origin from .env
-    credentials: true,                    // Allow cookies/auth headers
+    origin: process.env.CORS_ORIGIN, // Allowed frontend origin from .env
+    credentials: true, // Allow cookies/auth headers
   })
 );
 // Middleware to parse incoming JSON data from request body
@@ -27,5 +27,12 @@ app.use(express.static("public"));
 // Makes cookies easily accessible via req.cookies in route handlers
 app.use(cookieParser());
 
+// routers import
+import userRouter from "./routes/user.routes.js";
+
+// route declaration
+app.use("/api/v1/users", userRouter);
+
+//* http://localhost:8000/api/users/register
 
 export { app };
